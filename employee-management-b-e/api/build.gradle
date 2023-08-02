@@ -1,0 +1,18 @@
+subprojects {
+    apply plugin: "java-library"
+
+
+    sourceCompatibility = "17"
+    targetCompatibility = "17"
+
+
+    group = "org.gxstar.employee"
+
+    tasks.register("sourceJar", Jar) {
+        archiveClassifier.set("sources")
+    }
+
+    tasks.withType(JavaCompile).configureEach {
+        options.compilerArgs << "-parameters"
+    }
+}

@@ -1,0 +1,6 @@
+apply plugin: "java-library"
+
+dependencies {
+    api(project(":api:service-api"))
+    implementation(project(":app:persistence"))
+}

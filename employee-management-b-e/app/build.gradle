@@ -1,0 +1,18 @@
+apply plugin: 'org.springframework.boot'
+
+subprojects {
+    repositories {
+        mavenLocal()
+        mavenLocal()
+    }
+
+    dependencies {
+        implementation("org.springframework.boot:spring-boot-starter:${spring_boot_version}")
+    }
+}
+
+dependencies {
+    implementation(project(":app:persistence"))
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-actuator")
+}

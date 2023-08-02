@@ -1,0 +1,7 @@
+include(
+        ':app',
+        ':containers',
+        ':app:persistence',
+        ':app:service',
+        ':app:rest',
+)
