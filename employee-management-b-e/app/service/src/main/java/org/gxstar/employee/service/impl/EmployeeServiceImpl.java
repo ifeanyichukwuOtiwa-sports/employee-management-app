@@ -1,6 +1,7 @@
 package org.gxstar.employee.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.gxstar.employee.persistence.model.Employee;
 import org.gxstar.employee.persistence.repository.EmployeeRepository;
@@ -16,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService {
     private final EmployeeRepository employeeRepository;
+
     @Override
     public List<EmployeeDto> getEmployees() {
         return employeeRepository.findAll().stream().map(this::mapToDto).toList();
@@ -23,6 +25,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private EmployeeDto mapToDto(final Employee employee) {
         return new EmployeeDto(
+                String.valueOf(employee.getId()),
                 employee.getFirstName(),
                 employee.getLastName(),
                 employee.getEmail()
@@ -48,7 +51,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeDto updateEmployee(final String id, final EmployeeUpdateRequest request) {
-        return employeeRepository.findById(Integer.parseInt(id)).map(this::mapToDto).orElseThrow();
+        return employeeRepository.findById(Integer.parseInt(id)).map(item -> doUpdate(item, request)).map(this::mapToDto).orElseThrow();
+    }
+
+    private Employee doUpdate(final Employee item, final EmployeeUpdateRequest request) {
+        Optional.ofNullable(request.firstName()).ifPresent(item::setFirstName);
+        Optional.ofNullable(request.email()).ifPresent(item::setEmail);
+        Optional.ofNullable(request.lastName()).ifPresent(item::setLastName);
+        return employeeRepository.update(item);
     }
 
     @Override
