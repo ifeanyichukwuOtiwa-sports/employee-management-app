@@ -8,6 +8,7 @@ import org.gxstar.employee.service.dto.EmployeeDto;
 import org.gxstar.employee.service.request.EmployeeSaveRequest;
 import org.gxstar.employee.service.request.EmployeeUpdateRequest;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping(path = RestMappings.EMPLOYEE_API_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 public class EmployeeController {
 
     private final EmployeeService employeeService;
